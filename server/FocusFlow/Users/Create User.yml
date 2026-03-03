@@ -1,0 +1,26 @@
+info:
+  name: Create User
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{base}}/api/users"
+  body:
+    type: json
+    data: |-
+      {
+        "userName":"Yug1646"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: base
+      value: http:/localhost:8000
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

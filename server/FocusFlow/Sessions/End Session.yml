@@ -1,0 +1,23 @@
+info:
+  name: End Session
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{base}}/api/sessions/1/end"
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+runtime:
+  variables:
+    - name: base
+      value: http:/localhost:8000
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
