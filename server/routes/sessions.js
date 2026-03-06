@@ -1,9 +1,12 @@
+// * ----- PACKAGES -----
 import { Router } from "express";
 
-import { users, sessions } from "../utils/data.js";
+// *? ----- FUNCTIONS -----
+import { sessions } from "../utils/data.js";
 import {
   findSessionbyIndex,
   findSessionbyUserId,
+  validateSessionId,
 } from "../utils/middleware.js";
 
 const router = Router();
@@ -25,29 +28,22 @@ router.post("/api/users/:userId/sessions", findSessionbyIndex, (req, res) => {
   res.status(201).json(session);
 });
 
-router.post("/api/sessions/:id/end", (req, res) => {
-  const parsedSessionId = parseInt(req.params.id);
-  if (isNaN(parsedSessionId)) {
-    return res.status(400).json({ message: "Invalid session id" });
-  }
-  const session = sessions.find(
-    s => s.id === parsedSessionId
-  );
-  if (!session) {
-    return res.status(404).json({ message: "Session not found" });
-  }
+router.post("/api/sessions/:id/end", validateSessionId, (req, res) => {
+  const session = req.session;
   if (session.endTime !== null) {
     return res.status(400).json({
-      message: "Session already ended"
+      message: "Session already ended",
     });
   }
   session.endTime = new Date();
-  session.duration =
-    (session.endTime - session.startTime) / 1000; // seconds
+  session.duration = (session.endTime - session.startTime) / 1000; // seconds
   res.status(200).json(session);
 });
 
-router.delete("/api/users/:userId/sessions/:id",findSessionbyUserId,(req, res) => {
+router.delete(
+  "/api/users/:userId/sessions/:id",
+  findSessionbyUserId,
+  (req, res) => {
     const { sessionIndex } = req;
     sessions.splice(sessionIndex, 1);
     res.status(200).json({

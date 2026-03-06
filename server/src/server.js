@@ -1,15 +1,19 @@
+// * ----- PACKAGES -----
 import express from "express";
 
-import userRoutes from "../routes/users.js";
-import sessionsRouter from "../routes/sessions.js";
+// *? ----- FUNCTIONS -----
+import routes from "../routes/index.js";
 
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
-app.use(userRoutes);
-app.use(sessionsRouter);
+app.use(routes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT: ${PORT}`);
+});
+
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Welcome to FocusFlow !!!" });
 });

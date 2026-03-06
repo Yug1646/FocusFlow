@@ -1,7 +1,11 @@
+// * ----- PACKAGES -----
 import { Router } from "express";
+import { checkSchema, validationResult, matchedData } from "express-validator";
 
+// *? ----- FUNCTION -----
 import { users } from "../utils/data.js";
 import { findUserbyIndex } from "../utils/middleware.js";
+import { createUserValidationSchema } from "../utils/validationSchemas.js";
 
 const router = Router();
 
@@ -14,12 +18,22 @@ router.get("/api/users/:id", findUserbyIndex, (req, res) => {
   return res.status(200).json(users[userIndex]);
 });
 
-router.post("/api/users", (req, res) => {
-  const { body } = req;
-  const newUser = { id: users.length + 1, ...body };
-  users.push(newUser);
-  return res.status(201).json(newUser);
-});
+router.post(
+  "/api/users",
+  checkSchema(createUserValidationSchema),
+  (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty())
+      return res.status(400).json({ errors: errors.array() });
+
+    const cleanData = matchedData(req);
+
+    const newUser = { id: users.length + 1, ...cleanData };
+    users.push(newUser);
+    return res.status(201).json(newUser);
+  },
+);
 
 router.delete("/api/users/:id", findUserbyIndex, (req, res) => {
   const { userIndex } = req;

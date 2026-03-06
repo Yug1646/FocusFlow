@@ -1,5 +1,6 @@
 import { users, sessions } from "./data.js";
 
+// TODO: USERS MIDDLEWARE
 export const findUserbyIndex = (req, res, next) => {
   const {
     params: { id },
@@ -17,6 +18,7 @@ export const findUserbyIndex = (req, res, next) => {
   next();
 };
 
+// TODO: SESSIONS MIDDLEWARE
 export const findSessionbyIndex = (req, res, next) => {
   const userId = parseInt(req.params.userId);
   const userExists = users.find((user) => user.id === userId);
@@ -45,5 +47,18 @@ export const findSessionbyUserId = (req, res, next) => {
     });
   }
   req.sessionIndex = sessionIndex;
+  next();
+};
+
+export const validateSessionId = (req, res, next) => {
+  const parsedSessionId = parseInt(req.params.id);
+  if (isNaN(parsedSessionId)) {
+    return res.status(400).json({ message: "Invalid session id" });
+  }
+  const session = sessions.find((s) => s.id === parsedSessionId);
+  if (!session) {
+    return res.status(404).json({ message: "Session not found" });
+  }
+  req.session = session;
   next();
 };
