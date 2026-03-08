@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: "{{base}}/api/sessions/1/end"
+  url: "{{base}}/api/sessions/2/end"
   body:
     type: json
     data: ""
