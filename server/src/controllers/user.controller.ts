@@ -1,10 +1,9 @@
 import type { Request, Response } from "express";
-import { findUserById } from "../services/user.service.js";
 
 // TODO: Get all users
 export const getUsers = (req: Request, res: Response) => {
   try {
-    res.status(200).json({ msg: "Users List" });
+    //! GET USERS SERVICE FUNCTION
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
     console.log(error);
@@ -14,7 +13,7 @@ export const getUsers = (req: Request, res: Response) => {
 // TODO: Get user by id
 export const getUserById = (req: Request, res: Response) => {
   try {
-    const findUser = findUserById(Number(req.params.id));
+    //! GET USER BY ID SERVICE FUNCTION
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
     console.log(error);
@@ -24,11 +23,7 @@ export const getUserById = (req: Request, res: Response) => {
 // TODO: Update user details
 export const updateUser = (req: Request, res: Response) => {
   try {
-    const findUser = findUserById(Number(req.params.id));
-
-    //! UPDATE USER FUNCTION
-
-    res.status(200).json(findUser);
+    //! UPDATE USER SERVICE FUNCTION
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
     console.log(error);
@@ -38,11 +33,7 @@ export const updateUser = (req: Request, res: Response) => {
 // TODO: Delete user
 export const deleteUser = (req: Request, res: Response) => {
   try {
-    const findUser = findUserById(Number(req.params.id));
-
-    //! DELETE USER FUNCTION
-
-    res.status(200).json({ msg: "User deleted successfully !" });
+    //! DELETE USER SERVICE FUNCTION
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
     console.log(error);

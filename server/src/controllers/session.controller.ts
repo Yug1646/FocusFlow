@@ -1,9 +1,9 @@
 import type { Response, Request } from "express";
-import { findSessionById } from "../services/session.service.js";
 
 // TODO: Get all sessions
 export const getSessions = (req: Request, res: Response) => {
   try {
+    //! GET SESSIONS SERVICE FUNCTION
     res.status(200).json({ msg: "Sessions" });
   } catch (error) {
     res.status(500).json({ msg: "Internal server error !" });
@@ -13,7 +13,15 @@ export const getSessions = (req: Request, res: Response) => {
 // TODO: Get session by Id
 export const getSessionById = (req: Request, res: Response) => {
   try {
-    const findSession = findSessionById(Number(req.params.id));
+    //! GET SESSION BY ID SERVICE FUNCTION
+  } catch (error) {
+    res.status(500).json({ msg: "Internal server error" });
+  }
+};
+
+export const getSessionByUserId = (req: Request, res: Response) => {
+  try {
+    //! GET SESSION BY USER ID SERVICE FUNCTION
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
   }
@@ -22,7 +30,7 @@ export const getSessionById = (req: Request, res: Response) => {
 // TODO: Start a new Session
 export const createSession = (req: Request, res: Response) => {
   try {
-    const findSession = findSessionById(Number(req.params.id));
+    //! CREATE SESSION SERVICE FUNCTION
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
   }
@@ -31,7 +39,7 @@ export const createSession = (req: Request, res: Response) => {
 // TODO: Update Session
 export const updateSession = (req: Request, res: Response) => {
   try {
-    const findSession = findSessionById(Number(req.params.id));
+    //! UPDATE SESSION SERVICE FUNCTION
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
   }
@@ -40,7 +48,7 @@ export const updateSession = (req: Request, res: Response) => {
 // TODO: End Session
 export const endSession = (req: Request, res: Response) => {
   try {
-    const findSession = findSessionById(Number(req.params.id));
+    //! END SESSION SERVICE FUNCTION
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
   }
@@ -49,7 +57,7 @@ export const endSession = (req: Request, res: Response) => {
 // TODO: Delete Session
 export const deleteSession = (req: Request, res: Response) => {
   try {
-    const findSession = findSessionById(Number(req.params.id));
+    //! DELETE SESSION SERVICE FUNCTION
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
   }
