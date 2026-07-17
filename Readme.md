@@ -1,64 +1,56 @@
-# FocusFlow Backend
+# FocusFlow
 
-FocusFlow is a application for tracking users' focus sessions and productivity. This repository is being developed incrementally, with the README updated as each phase is completed.
+FocusFlow is a productivity web application designed to help users track focus sessions, improve consistency, and build productive habits.
 
 ## Current Phase
 
-### Project Setup
-
 ### Objectives
 
-- Set up a Node.js project with TypeScript.
-- Configure PostgreSQL and Drizzle ORM.
-- Create the initial folder structure.
-- Configure environment variables.
-- Create the initial database schema.
-- Generate the first database migration.
+- Set up the project structure.
+- Configure the backend with TypeScript and Express.
+- Set up SQLite using Drizzle ORM.
+- Design the initial database schema.
+- Implement user authentication.
+- Build session management APIs.
+- Test APIs using Bruno.
 
-### Authentication
+### Features in Progress
 
-- Implement user registration.
-- Implement user login.
-- Hash passwords using bcrypt.
-- Generate JWT tokens after successful login.
-- Create authentication middleware to protect routes.
-
-### API Development
-
-- Create authentication routes.
-- Create session routes.
-- Organize controllers, services, and routes.
-- Follow REST API conventions.
-
-### Database
-
-Initial tables:
-
-- Users
-- Sessions
-
-Relationship:
-
-- One user can have multiple focus sessions.
-
-### Testing
-
-- Test all endpoints using Bruno.
-- Verify request validation.
-- Verify authentication flow.
-- Handle common error cases.
+- User Registration
+- User Login
+- JWT Authentication
+- Focus Session Management
+- SQLite Database
+- API Testing
 
 ### Tech Stack
+
+#### Frontend
+
+- Coming Soon
+
+#### Backend
 
 - Node.js
 - TypeScript
 - Express.js
-- PostgreSQL
 - Drizzle ORM
-- bcrypt
+- SQLite
 - JWT
-- dotenv
+- bcrypt
 - Bruno
+
+## Progress
+
+- [x] Project initialized
+- [x] Folder structure created
+- [x] API routes planned
+- [ ] SQLite configured
+- [ ] Database schema
+- [ ] Authentication
+- [ ] Session APIs
+- [ ] API Testing
 
 ---
 
+This README will evolve as each phase of FocusFlow is completed.
