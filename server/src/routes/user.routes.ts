@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   deleteUser,
+  getUserByEmail,
   getUserById,
   getUsers,
   updateUser,
@@ -13,6 +14,9 @@ router.get("/", getUsers);
 
 // TODO: Get user by id
 router.get("/:id", getUserById);
+
+// TODO: Get user by id
+router.get("/by-email/:email", getUserByEmail);
 
 // TODO: Update user detail
 router.patch("/:id", updateUser);

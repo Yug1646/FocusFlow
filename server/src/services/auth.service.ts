@@ -1,11 +1,11 @@
 //* ----- Auth Services -----
-
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { db } from "../db/index.js";
 import { users } from "../db/schema.js";
 import { eq } from "drizzle-orm";
 import { AppError } from "../utils/AppError.js";
+import { toAuthResponse, toUserResponse } from "../dto/user.dto.js";
 
 //? Create new user
 export const createUser = async (
@@ -28,7 +28,7 @@ export const createUser = async (
     .insert(users)
     .values({ username, email, password: passwordHash })
     .returning();
-  return created;
+  return toUserResponse(created);
 };
 
 //? User Login
@@ -49,8 +49,5 @@ export const authenticateUser = async (email: string, password: string) => {
     expiresIn: "1d",
   });
 
-  return {
-    token,
-    user: { id: user.id, email: user.email, username: user.username },
-  };
+  return toAuthResponse(user, token);
 };

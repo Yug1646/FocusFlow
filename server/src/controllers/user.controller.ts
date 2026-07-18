@@ -1,41 +1,44 @@
 import type { Request, Response } from "express";
+import {
+  deleteUserById,
+  findUserByEmail,
+  findUsers,
+  findUsersById,
+  updateUserById,
+} from "../services/user.service.js";
 
 // TODO: Get all users
-export const getUsers = (req: Request, res: Response) => {
-  try {
-    //! GET USERS SERVICE FUNCTION
-  } catch (error) {
-    res.status(500).json({ msg: "Internal server error" });
-    console.log(error);
-  }
+export const getUsers = async (req: Request, res: Response) => {
+  const users = await findUsers();
+  res.status(200).json(users);
 };
 
 // TODO: Get user by id
-export const getUserById = (req: Request, res: Response) => {
-  try {
-    //! GET USER BY ID SERVICE FUNCTION
-  } catch (error) {
-    res.status(500).json({ msg: "Internal server error" });
-    console.log(error);
-  }
+export const getUserById = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const user = await findUsersById(id);
+  res.status(200).json(user);
+};
+
+// TODO: Get user by Email
+export const getUserByEmail = async (req: Request, res: Response) => {
+  const email = req.params.email;
+  const user = await findUserByEmail(email as string);
+  res.status(200).json(user);
 };
 
 // TODO: Update user details
-export const updateUser = (req: Request, res: Response) => {
-  try {
-    //! UPDATE USER SERVICE FUNCTION
-  } catch (error) {
-    res.status(500).json({ msg: "Internal server error" });
-    console.log(error);
-  }
+export const updateUser = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const data = req.body;
+
+  const updateDetails = await updateUserById(id, data);
+  res.status(200).json(updateDetails);
 };
 
 // TODO: Delete user
-export const deleteUser = (req: Request, res: Response) => {
-  try {
-    //! DELETE USER SERVICE FUNCTION
-  } catch (error) {
-    res.status(500).json({ msg: "Internal server error" });
-    console.log(error);
-  }
+export const deleteUser = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const result = await deleteUserById(id);
+  res.status(200).json(result);
 };
