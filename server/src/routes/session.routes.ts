@@ -23,9 +23,9 @@ router.post("/", createSession);
 router.patch("/:id", updateSession);
 
 // TODO: End Session (set Endtime)
-router.patch("/:id/end", endSession);
+router.get("/end/:id", endSession);
 
 // TODO: Delete session
 router.delete("/:id", deleteSession);
 
-export default router;
+export default router;  

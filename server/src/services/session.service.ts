@@ -10,7 +10,7 @@ export const findSessions = async () => {
   const allSessions = await db.select().from(sessions);
 
   if (allSessions.length === 0) {
-    throw new AppError(200, "No sessions found");
+    throw new AppError(404, "No sessions found");
   }
   return allSessions;
 };
@@ -43,18 +43,18 @@ export const findSessionByUserId = async (id: number) => {
 
 //? Create Session
 export const startSession = async (userId: number, title: string) => {
-  const [cerated] = await db
+  const [created] = await db
     .insert(sessions)
     .values({
       userId,
       title,
     })
     .returning();
-  return cerated;
+  return created;
 };
 
 //? End Session
-export const endSession = async (id: number) => {
+export const stopSession = async (id: number) => {
   const findSession = await db
     .select()
     .from(sessions)
@@ -71,7 +71,7 @@ export const endSession = async (id: number) => {
 
   await db
     .update(sessions)
-    .set({ endedAt: sql`CURRENT TIMESTAMP` })
+    .set({endedAt: sql`CURRENT_TIMESTAMP`})
     .where(eq(sessions.id, id));
 
   return { msg: "Session ended successfully" };
