@@ -3,6 +3,7 @@ import {
   deleteSessionById,
   findSessionById,
   findSessions,
+  startSession,
 } from "../services/session.service.js";
 
 // TODO: Get all sessions
