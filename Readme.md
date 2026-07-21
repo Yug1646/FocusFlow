@@ -14,14 +14,14 @@ FocusFlow is a productivity web application designed to help users track focus s
 - Build session management APIs.
 - Test APIs using Bruno.
 
-### Features in Progress
+### Features
 
 - User Registration
-- User Login
-- JWT Authentication
-- Focus Session Management
-- SQLite Database
-- API Testing
+- User Login (JWT-based)
+- Focus Session Management (create, update, end, delete)
+- SQLite Database with Drizzle ORM
+- Centralized Error Handling
+- API Testing with Bruno
 
 ### Tech Stack
 
@@ -35,7 +35,7 @@ FocusFlow is a productivity web application designed to help users track focus s
 - TypeScript
 - Express.js
 - Drizzle ORM
-- SQLite
+- SQLite (better-sqlite3)
 - JWT
 - bcrypt
 - Bruno
@@ -45,11 +45,18 @@ FocusFlow is a productivity web application designed to help users track focus s
 - [x] Project initialized
 - [x] Folder structure created
 - [x] API routes planned
-- [ ] SQLite configured
-- [ ] Database schema
-- [ ] Authentication
-- [ ] Session APIs
-- [ ] API Testing
+- [x] SQLite configured
+- [x] Database schema
+- [x] Authentication (register + login with JWT signing)
+- [x] Session APIs
+- [x] API Testing
+
+## Next Up
+
+- [ ] JWT verification middleware (protect routes)
+- [ ] Request validation (zod)
+- [ ] Password change endpoint
+- [ ] Frontend
 
 ---
 

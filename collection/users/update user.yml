@@ -5,12 +5,12 @@ info:
 
 http:
   method: PATCH
-  url: "{{base}}/api/users/6"
+  url: "{{base}}/api/users/1"
   body:
     type: json
     data: |-
       {
-        "username":"Yug"
+        "username":"Yug Jain"
       }
   auth: inherit
 
