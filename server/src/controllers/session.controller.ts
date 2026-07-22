@@ -4,7 +4,7 @@ import {
   findSessionById,
   findSessions,
   startSession,
-  stopSession,
+  endSessionById,
   updateSessionById,
 } from "../services/session.service.js";
 
@@ -28,23 +28,23 @@ export const createSession = async (req: Request, res: Response) => {
   // const userId = Number(req.params.id);
   const userId = 2;
   const { title } = req.body;
-  const start = await startSession(userId, title);
-  res.status(201).json(start);
+  const session = await startSession(userId, title);
+  res.status(201).json(session);
 };
 
 // TODO: Update Session
 export const updateSession = async (req: Request, res: Response) => {
   const sessionId = Number(req.params.id);
-  const title  = req.body;
-  const updateResult = await updateSessionById(sessionId, title);
-  res.status(200).json(updateResult);
+  const {title} = req.body;
+  const result = await updateSessionById(sessionId, {title});
+  res.status(200).json(result);
 };
 
 // TODO: End Session
 export const endSession = async (req: Request, res: Response) => {
   const sessionId = Number(req.params.id);
-  const stop = await stopSession(sessionId);
-  res.status(200).json(stop);
+  const result = await endSessionById(sessionId);
+  res.status(200).json(result);
 };
 
 // TODO: Delete Session

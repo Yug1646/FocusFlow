@@ -3,7 +3,7 @@ import {
   deleteUserById,
   findUserByEmail,
   findUsers,
-  findUsersById,
+  findUserById,
   updateUserById,
 } from "../services/user.service.js";
 
@@ -16,7 +16,7 @@ export const getUsers = async (req: Request, res: Response) => {
 // TODO: Get user by id
 export const getUserById = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
-  const user = await findUsersById(id);
+  const user = await findUserById(id);
   res.status(200).json(user);
 };
 
@@ -32,8 +32,8 @@ export const updateUser = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const data = req.body;
 
-  const updateDetails = await updateUserById(id, data);
-  res.status(200).json(updateDetails);
+  const result = await updateUserById(id, data);
+  res.status(200).json(result);
 };
 
 // TODO: Delete user

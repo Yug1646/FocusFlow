@@ -16,14 +16,14 @@ router.get("/", getSessions);
 // TODO: Get session by id
 router.get("/:id", getSessionById);
 
-// TODO: Start new sessiom
+// TODO: Start new session
 router.post("/", createSession);
 
 // TODO: Update session
 router.patch("/:id", updateSession);
 
 // TODO: End Session (set Endtime)
-router.get("/end/:id", endSession);
+router.patch("/:id/end", endSession);
 
 // TODO: Delete session
 router.delete("/:id", deleteSession);

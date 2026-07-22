@@ -7,63 +7,57 @@ import { AppError } from "../utils/AppError.js";
 
 //? GET All Sessions
 export const findSessions = async () => {
-  const allSessions = await db.select().from(sessions);
+  const result = await db.select().from(sessions);
 
-  if (allSessions.length === 0) {
+  if (result.length === 0) {
     throw new AppError(404, "No sessions found");
   }
-  return allSessions;
+  return result;
 };
 
 //? GET Session by session id
 export const findSessionById = async (id: number) => {
-  const findSession = await db
-    .select()
-    .from(sessions)
-    .where(eq(sessions.id, id));
+  const result = await db.select().from(sessions).where(eq(sessions.id, id));
 
-  if (findSession.length === 0) {
+  if (result.length === 0) {
     throw new AppError(404, "Session not found");
   }
-  return findSession;
+  return result;
 };
 
 //? GET Session by user id
 export const findSessionByUserId = async (id: number) => {
-  const findSession = await db
+  const result = await db
     // WE NEED TO CHECK IF USER IS VALID
     .select()
     .from(sessions)
     .where(eq(sessions.userId, id));
-  if (findSession.length === 0) {
+  if (result.length === 0) {
     throw new AppError(404, "Session not found");
   }
-  return findSession;
+  return result;
 };
 
 //? Create Session
 export const startSession = async (userId: number, title: string) => {
-  const [created] = await db
+  const [session] = await db
     .insert(sessions)
     .values({
       userId,
       title,
     })
     .returning();
-  return created;
+  return session;
 };
 
 //? End Session
-export const stopSession = async (id: number) => {
-  const findSession = await db
-    .select()
-    .from(sessions)
-    .where(eq(sessions.id, id));
-  if (findSession.length === 0) {
+export const endSessionById = async (id: number) => {
+  const result = await db.select().from(sessions).where(eq(sessions.id, id));
+  if (result.length === 0) {
     throw new AppError(404, "Session not found");
   }
 
-  const [session] = findSession;
+  const [session] = result;
 
   if (session.endedAt) {
     throw new AppError(400, "Session already ended");
@@ -71,7 +65,7 @@ export const stopSession = async (id: number) => {
 
   await db
     .update(sessions)
-    .set({endedAt: sql`CURRENT_TIMESTAMP`})
+    .set({ endedAt: sql`CURRENT_TIMESTAMP` })
     .where(eq(sessions.id, id));
 
   return { msg: "Session ended successfully" };
@@ -82,13 +76,13 @@ export const updateSessionById = async (
   id: number,
   data: { title?: string },
 ) => {
-  const updated = await db
+  const result = await db
     .update(sessions)
     .set(data)
     .where(eq(sessions.id, id))
     .returning();
 
-  if (updated.length === 0) {
+  if (result.length === 0) {
     throw new AppError(404, "Session not found");
   }
 
@@ -97,12 +91,12 @@ export const updateSessionById = async (
 
 //? Delete Session
 export const deleteSessionById = async (id: number) => {
-  const deleted = await db
+  const result = await db
     .delete(sessions)
     .where(eq(sessions.id, id))
     .returning({ id: sessions.id });
 
-  if (deleted.length === 0) {
+  if (result.length === 0) {
     throw new AppError(404, "Session not found");
   }
   return { msg: "Session deleted successfully" };
