@@ -5,7 +5,7 @@ info:
 
 http:
   method: PATCH
-  url: "{{base}}/api/sessions/6/end"
+  url: "{{base}}/api/sessions/111/end"
   auth: inherit
 
 settings:

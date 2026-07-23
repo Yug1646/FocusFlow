@@ -4,15 +4,15 @@ import { db } from "../db/index.js";
 import { eq, sql } from "drizzle-orm";
 import { sessions } from "../db/schema.js";
 import { AppError } from "../utils/AppError.js";
+import {
+  toCreatedSessionResponse,
+  toSessionResponse,
+} from "../dto/session.dto.js";
 
 //? GET All Sessions
 export const findSessions = async () => {
   const result = await db.select().from(sessions);
-
-  if (result.length === 0) {
-    throw new AppError(404, "No sessions found");
-  }
-  return result;
+  return result.map(toSessionResponse);
 };
 
 //? GET Session by session id
@@ -22,7 +22,7 @@ export const findSessionById = async (id: number) => {
   if (result.length === 0) {
     throw new AppError(404, "Session not found");
   }
-  return result;
+  return toSessionResponse(result[0]);
 };
 
 //? GET Session by user id
@@ -35,7 +35,7 @@ export const findSessionByUserId = async (id: number) => {
   if (result.length === 0) {
     throw new AppError(404, "Session not found");
   }
-  return result;
+  return result.map(toSessionResponse);
 };
 
 //? Create Session
@@ -47,7 +47,7 @@ export const startSession = async (userId: number, title: string) => {
       title,
     })
     .returning();
-  return session;
+  return toCreatedSessionResponse(session);
 };
 
 //? End Session

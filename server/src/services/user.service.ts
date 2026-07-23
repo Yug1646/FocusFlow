@@ -8,9 +8,6 @@ import { AppError } from "../utils/AppError.js";
 //? GET All Users
 export const findUsers = async () => {
   const result = await db.select().from(users);
-  if (result.length === 0) {
-    throw new AppError(404, "No users found");
-  }
   return result.map(toUserResponse);
 };
 
@@ -20,7 +17,7 @@ export const findUserById = async (id: number) => {
   if (result.length === 0) {
     throw new AppError(404, "User not found");
   }
-  return result.map(toUserResponse);
+  return toUserResponse(result[0]);
 };
 
 //? GET User by email
@@ -29,7 +26,7 @@ export const findUserByEmail = async (email: string) => {
   if (result.length === 0) {
     throw new AppError(404, "User not found");
   }
-  return result.map(toUserResponse);
+  return toUserResponse(result[0]);
 };
 
 //? UPDATE User

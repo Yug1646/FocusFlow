@@ -16,8 +16,6 @@ export const toAuthResponse = (
   },
   token: string,
 ) => ({
-  userId: user.id,
-  username: user.username,
-  email: user.email,
   token,
+  user: toUserResponse(user),
 });

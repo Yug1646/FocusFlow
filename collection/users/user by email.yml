@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{base}}/api/users/by-email/natasha@gmail.com"
+  url: "{{base}}/api/users/by-email/yug@gmail.com"
   auth: inherit
 
 settings:
