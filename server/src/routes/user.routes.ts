@@ -6,8 +6,11 @@ import {
   getUsers,
   updateUser,
 } from "../controllers/user.controller.js";
+import { authMiddleware } from "../middleware/authenticate.js";
 
 const router = Router();
+
+router.use(authMiddleware);
 
 // TODO: Get all users
 router.get("/", getUsers);

@@ -28,7 +28,6 @@ export const findSessionById = async (id: number) => {
 //? GET Session by user id
 export const findSessionByUserId = async (id: number) => {
   const result = await db
-    // WE NEED TO CHECK IF USER IS VALID
     .select()
     .from(sessions)
     .where(eq(sessions.userId, id));
