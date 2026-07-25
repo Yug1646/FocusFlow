@@ -5,7 +5,7 @@ info:
 
 http:
   method: DELETE
-  url: "{{base}}/api/users/9"
+  url: "{{base}}/api/users/4"
   auth: inherit
 
 settings:

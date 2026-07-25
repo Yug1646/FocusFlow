@@ -10,10 +10,12 @@ import {
 } from "../dto/session.dto.js";
 
 //? GET All Sessions
+/*
 export const findSessions = async () => {
   const result = await db.select().from(sessions);
   return result.map(toSessionResponse);
 };
+*/
 
 //? GET Session by session id
 export const findSessionById = async (id: number) => {
@@ -31,9 +33,6 @@ export const findSessionByUserId = async (id: number) => {
     .select()
     .from(sessions)
     .where(eq(sessions.userId, id));
-  if (result.length === 0) {
-    throw new AppError(404, "Session not found");
-  }
   return result.map(toSessionResponse);
 };
 

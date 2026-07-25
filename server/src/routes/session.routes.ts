@@ -17,7 +17,7 @@ router.use(authMiddleware);
 router.get("/", getSessions);
 
 // TODO: Get session by id
-router.get("/:id", getSessionById);
+router.get("/", getSessionById);
 
 // TODO: Start new session
 router.post("/", createSession);

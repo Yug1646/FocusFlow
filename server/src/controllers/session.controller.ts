@@ -2,15 +2,16 @@ import type { Response, Request } from "express";
 import {
   deleteSessionById,
   findSessionById,
-  findSessions,
   startSession,
   endSessionById,
   updateSessionById,
+  findSessionByUserId,
 } from "../services/session.service.js";
 
-// TODO: Get all sessions
+// TODO: Get all sessions of Current User
 export const getSessions = async (req: Request, res: Response) => {
-  const sessions = await findSessions();
+  const userId = req.user!.userId;
+  const sessions = await findSessionByUserId(userId);
   res.status(200).json(sessions);
 };
 
@@ -20,8 +21,6 @@ export const getSessionById = async (req: Request, res: Response) => {
   const session = await findSessionById(id);
   res.status(200).json(session);
 };
-
-export const getSessionByUserId = async (req: Request, res: Response) => {};
 
 // TODO: Start a new Session
 export const createSession = async (req: Request, res: Response) => {
