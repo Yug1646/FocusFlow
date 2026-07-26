@@ -5,7 +5,7 @@ import {
   endSession,
   getSessionById,
   getSessions,
-  updateSession,
+  updateSessionTitle,
 } from "../controllers/session.controller.js";
 import { authMiddleware } from "../middleware/authenticate.js";
 
@@ -23,7 +23,7 @@ router.get("/", getSessionById);
 router.post("/", createSession);
 
 // TODO: Update session
-router.patch("/:id", updateSession);
+router.patch("/:id", updateSessionTitle);
 
 // TODO: End Session (set Endtime)
 router.patch("/:id/end", endSession);

@@ -5,6 +5,7 @@ import {
   findUsers,
   findUserById,
   updateUserById,
+  changeUserPassword,
 } from "../services/user.service.js";
 
 // TODO: Get all users
@@ -33,6 +34,19 @@ export const updateUser = async (req: Request, res: Response) => {
   const data = req.body;
 
   const result = await updateUserById(id, data);
+  res.status(200).json(result);
+};
+
+// TODO: Update user password
+export const updateUserPassword = async (req: Request, res: Response) => {
+  const userId = req.user!.userId;
+  const { oldPassword, newPassword } = req.body;
+
+  const result = await changeUserPassword(
+    userId,
+    oldPassword,
+    newPassword,
+  );
   res.status(200).json(result);
 };
 

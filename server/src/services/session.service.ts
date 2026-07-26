@@ -69,8 +69,8 @@ export const endSessionById = async (id: number) => {
   return { msg: "Session ended successfully" };
 };
 
-//? Update Session
-export const updateSessionById = async (
+//? Update Session Title
+export const updateSessionTitleById = async (
   id: number,
   data: { title?: string },
 ) => {

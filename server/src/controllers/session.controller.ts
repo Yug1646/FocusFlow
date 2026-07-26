@@ -4,7 +4,7 @@ import {
   findSessionById,
   startSession,
   endSessionById,
-  updateSessionById,
+  updateSessionTitleById,
   findSessionByUserId,
 } from "../services/session.service.js";
 
@@ -30,11 +30,11 @@ export const createSession = async (req: Request, res: Response) => {
   res.status(201).json(session);
 };
 
-// TODO: Update Session
-export const updateSession = async (req: Request, res: Response) => {
+// TODO: Update Session Title
+export const updateSessionTitle = async (req: Request, res: Response) => {
   const sessionId = Number(req.params.id);
   const { title } = req.body;
-  const result = await updateSessionById(sessionId, { title });
+  const result = await updateSessionTitleById(sessionId, { title });
   res.status(200).json(result);
 };
 

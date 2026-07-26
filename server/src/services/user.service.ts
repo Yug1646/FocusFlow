@@ -1,4 +1,6 @@
 //* ----- User Services -----
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { users } from "../db/schema.js";
@@ -44,6 +46,35 @@ export const updateUserById = async (
     throw new AppError(404, "User not found");
   }
   return toUserResponse(result[0]);
+};
+
+//? UPDATE User Password
+export const changeUserPassword = async (
+  id: number,
+  oldPassword: string,
+  newPassword: string,
+) => {
+  const result = await db.select().from(users).where(eq(users.id, id));
+
+  if (result.length === 0) {
+    throw new AppError(404, "User not found");
+  }
+
+  const [user] = result;
+  const passwordIsValid = bcrypt.compareSync(oldPassword, user.password);
+
+  if (!passwordIsValid) {
+    throw new AppError(401, "Invalid Password");
+  }
+
+  const newPasswordHash = bcrypt.hashSync(newPassword, 10);
+
+  const updatePassword = await db
+    .update(users)
+    .set({ password: newPasswordHash })
+    .where(eq(users.id, id));
+
+  return { msg: "Password updated successfully" };
 };
 
 //? DELETE User

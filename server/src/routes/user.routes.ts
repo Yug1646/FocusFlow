@@ -5,6 +5,7 @@ import {
   getUserById,
   getUsers,
   updateUser,
+  updateUserPassword,
 } from "../controllers/user.controller.js";
 import { authMiddleware } from "../middleware/authenticate.js";
 
@@ -20,6 +21,9 @@ router.get("/:id", getUserById);
 
 // TODO: Get user by id
 router.get("/by-email/:email", getUserByEmail);
+
+// TODO: Update user password
+router.patch("/password", updateUserPassword);
 
 // TODO: Update user detail
 router.patch("/:id", updateUser);
