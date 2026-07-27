@@ -19,6 +19,9 @@ FocusFlow is a productivity web application designed to help users track focus s
 - User Registration
 - User Login (JWT-based)
 - Focus Session Management (create, update, end, delete)
+- Password Change (with current-password verification)
+- Session Ownership Authorization (users can only access their own sessions)
+- Request Validation (Zod)
 - SQLite Database with Drizzle ORM
 - Centralized Error Handling
 - API Testing with Bruno
@@ -38,6 +41,7 @@ FocusFlow is a productivity web application designed to help users track focus s
 - SQLite (better-sqlite3)
 - JWT
 - bcrypt
+- Zod
 - Bruno
 
 ## Progress
@@ -49,14 +53,17 @@ FocusFlow is a productivity web application designed to help users track focus s
 - [x] Database schema
 - [x] Authentication (register + login with JWT signing)
 - [x] Session APIs
+- [x] JWT verification middleware (protected routes)
+- [x] Session ownership authorization
+- [x] Password change endpoint
+- [x] Request validation (Zod)
 - [x] API Testing
 
 ## Next Up
 
-- [ ] JWT verification middleware (protect routes)
-- [ ] Request validation (zod)
-- [ ] Password change endpoint
 - [ ] Frontend
+- [ ] Response format standardization (`msg` vs `message`)
+- [ ] Consider `/me` routes for self-service profile access
 
 ---
 

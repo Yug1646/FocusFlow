@@ -1,11 +1,11 @@
 //* ----- Auth Services -----
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { db } from "../db/index.js";
 import { users } from "../db/schema.js";
 import { eq } from "drizzle-orm";
 import { AppError } from "../utils/AppError.js";
 import { toAuthResponse, toUserResponse } from "../dto/user.dto.js";
+import { comparePassword, hashPassword } from "../utils/password.js";
 
 //? Create new user
 export const createUser = async (
@@ -22,7 +22,7 @@ export const createUser = async (
     throw new AppError(409, "Email already registered");
   }
 
-  const passwordHash = bcrypt.hashSync(password, 10);
+  const passwordHash = await hashPassword(password);
 
   const [created] = await db
     .insert(users)
@@ -39,7 +39,7 @@ export const authenticateUser = async (email: string, password: string) => {
     throw new AppError(404, "User not found");
   }
   const [user] = findUser;
-  const passwordIsValid = bcrypt.compareSync(password, user.password);
+  const passwordIsValid = await comparePassword(password, user.password);
 
   if (!passwordIsValid) {
     throw new AppError(404, "Invalid Password");

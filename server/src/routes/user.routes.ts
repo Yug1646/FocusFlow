@@ -7,7 +7,14 @@ import {
   updateUser,
   updateUserPassword,
 } from "../controllers/user.controller.js";
+
 import { authMiddleware } from "../middleware/authenticate.js";
+import { validate } from "../middleware/validate.js";
+
+import {
+  changePasswordSchema,
+  updateUserSchema,
+} from "../schemas/user.schema.js";
 
 const router = Router();
 
@@ -23,10 +30,10 @@ router.get("/:id", getUserById);
 router.get("/by-email/:email", getUserByEmail);
 
 // TODO: Update user password
-router.patch("/password", updateUserPassword);
+router.patch("/password", validate(changePasswordSchema), updateUserPassword);
 
 // TODO: Update user detail
-router.patch("/:id", updateUser);
+router.patch("/:id", validate(updateUserSchema), updateUser);
 
 // TODO: Delete user
 router.delete("/:id", deleteUser);

@@ -9,6 +9,20 @@ import {
   toSessionResponse,
 } from "../dto/session.dto.js";
 
+const getSessionForUser = async (id: number, userId: number) => {
+  const result = await db.select().from(sessions).where(eq(sessions.id, id));
+
+  if (result.length === 0) {
+    throw new AppError(404, "Session not found");
+  }
+  const session = result[0];
+
+  if (session.userId !== userId) {
+    throw new AppError(403, "You do not have access to this session");
+  }
+  return session;
+};
+
 //? GET All Sessions
 /*
 export const findSessions = async () => {
@@ -18,13 +32,9 @@ export const findSessions = async () => {
 */
 
 //? GET Session by session id
-export const findSessionById = async (id: number) => {
-  const result = await db.select().from(sessions).where(eq(sessions.id, id));
-
-  if (result.length === 0) {
-    throw new AppError(404, "Session not found");
-  }
-  return toSessionResponse(result[0]);
+export const findSessionById = async (id: number, userId: number) => {
+  const session = await getSessionForUser(id, userId);
+  return toSessionResponse(session);
 };
 
 //? GET Session by user id
@@ -49,14 +59,8 @@ export const startSession = async (userId: number, title: string) => {
 };
 
 //? End Session
-export const endSessionById = async (id: number) => {
-  const result = await db.select().from(sessions).where(eq(sessions.id, id));
-  if (result.length === 0) {
-    throw new AppError(404, "Session not found");
-  }
-
-  const [session] = result;
-
+export const endSessionById = async (id: number, userId: number) => {
+  const session = await getSessionForUser(id, userId);
   if (session.endedAt) {
     throw new AppError(400, "Session already ended");
   }
@@ -73,29 +77,16 @@ export const endSessionById = async (id: number) => {
 export const updateSessionTitleById = async (
   id: number,
   data: { title?: string },
+  userId: number,
 ) => {
-  const result = await db
-    .update(sessions)
-    .set(data)
-    .where(eq(sessions.id, id))
-    .returning();
-
-  if (result.length === 0) {
-    throw new AppError(404, "Session not found");
-  }
-
+  await getSessionForUser(id, userId);
+  await db.update(sessions).set(data).where(eq(sessions.id, id)).returning();
   return { msg: "Session updated successfully" };
 };
 
 //? Delete Session
-export const deleteSessionById = async (id: number) => {
-  const result = await db
-    .delete(sessions)
-    .where(eq(sessions.id, id))
-    .returning({ id: sessions.id });
-
-  if (result.length === 0) {
-    throw new AppError(404, "Session not found");
-  }
+export const deleteSessionById = async (id: number, userId: number) => {
+  await getSessionForUser(id, userId);
+  await db.delete(sessions).where(eq(sessions.id, id));
   return { msg: "Session deleted successfully" };
 };

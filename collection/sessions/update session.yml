@@ -5,12 +5,12 @@ info:
 
 http:
   method: PATCH
-  url: "{{base}}/api/sessions/3"
+  url: "{{base}}/api/sessions/20"
   body:
     type: json
     data: |-
       {
-        "title":"Learning Frontend"
+        "title":"Testing APIs"
       }
   auth: inherit
 

@@ -1,11 +1,10 @@
 //* ----- User Services -----
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { eq } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { users } from "../db/schema.js";
 import { toUserResponse } from "../dto/user.dto.js";
 import { AppError } from "../utils/AppError.js";
+import { comparePassword, hashPassword } from "../utils/password.js";
 
 //? GET All Users
 export const findUsers = async () => {
@@ -61,13 +60,13 @@ export const changeUserPassword = async (
   }
 
   const [user] = result;
-  const passwordIsValid = bcrypt.compareSync(oldPassword, user.password);
+  const passwordIsValid = await comparePassword(oldPassword, user.password);
 
   if (!passwordIsValid) {
     throw new AppError(401, "Invalid Password");
   }
 
-  const newPasswordHash = bcrypt.hashSync(newPassword, 10);
+  const newPasswordHash = await hashPassword(newPassword);
 
   const updatePassword = await db
     .update(users)

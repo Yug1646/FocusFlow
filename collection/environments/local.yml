@@ -2,6 +2,5 @@ name: local
 variables:
   - name: base
     value: http://localhost:8000
-  - secret: true
-    name: token
-    description: ""
+  - name: token
+    value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjExLCJpYXQiOjE3ODUxMTk2NDksImV4cCI6MTc4NTIwNjA0OX0.U_KD6dCk6NY6YZGw7icyC26Rr4tKgDvStlgUPVUzjcA

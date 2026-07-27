@@ -7,7 +7,14 @@ import {
   getSessions,
   updateSessionTitle,
 } from "../controllers/session.controller.js";
+
 import { authMiddleware } from "../middleware/authenticate.js";
+import { validate } from "../middleware/validate.js";
+
+import {
+  createSessionSchema,
+  updateSessionSchema,
+} from "../schemas/session.schema.js";
 
 const router = Router();
 
@@ -17,13 +24,13 @@ router.use(authMiddleware);
 router.get("/", getSessions);
 
 // TODO: Get session by id
-router.get("/", getSessionById);
+router.get("/:id", getSessionById);
 
 // TODO: Start new session
-router.post("/", createSession);
+router.post("/", validate(createSessionSchema), createSession);
 
 // TODO: Update session
-router.patch("/:id", updateSessionTitle);
+router.patch("/:id", validate(updateSessionSchema), updateSessionTitle);
 
 // TODO: End Session (set Endtime)
 router.patch("/:id/end", endSession);
