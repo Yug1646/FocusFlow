@@ -70,7 +70,7 @@ export const endSessionById = async (id: number, userId: number) => {
     .set({ endedAt: sql`CURRENT_TIMESTAMP` })
     .where(eq(sessions.id, id));
 
-  return { msg: "Session ended successfully" };
+  return { message: "Session ended successfully" };
 };
 
 //? Update Session Title
@@ -81,12 +81,12 @@ export const updateSessionTitleById = async (
 ) => {
   await getSessionForUser(id, userId);
   await db.update(sessions).set(data).where(eq(sessions.id, id)).returning();
-  return { msg: "Session updated successfully" };
+  return { message: "Session updated successfully" };
 };
 
 //? Delete Session
 export const deleteSessionById = async (id: number, userId: number) => {
   await getSessionForUser(id, userId);
   await db.delete(sessions).where(eq(sessions.id, id));
-  return { msg: "Session deleted successfully" };
+  return { message: "Session deleted successfully" };
 };

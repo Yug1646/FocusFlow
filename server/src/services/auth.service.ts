@@ -36,13 +36,13 @@ export const authenticateUser = async (email: string, password: string) => {
   const findUser = await db.select().from(users).where(eq(users.email, email));
 
   if (findUser.length === 0) {
-    throw new AppError(404, "User not found");
+    throw new AppError(401,"Invalid credentials");
   }
   const [user] = findUser;
   const passwordIsValid = await comparePassword(password, user.password);
 
   if (!passwordIsValid) {
-    throw new AppError(404, "Invalid Password");
+    throw new AppError(401,"Invalid credentials");
   }
 
   const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {

@@ -4,6 +4,7 @@
   "description": "FocusFlow is a application for tracking users' focus sessions and productivity. This repository is being developed incrementally, with the README updated as each phase is completed.",
   "main": "dist/server.js",
   "type": "module",
+  "typecheck": "tsc --noEmit",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "db:generate": "drizzle-kit generate",

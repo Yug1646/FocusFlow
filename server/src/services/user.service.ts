@@ -21,15 +21,6 @@ export const findUserById = async (id: number) => {
   return toUserResponse(result[0]);
 };
 
-//? GET User by email
-export const findUserByEmail = async (email: string) => {
-  const result = await db.select().from(users).where(eq(users.email, email));
-  if (result.length === 0) {
-    throw new AppError(404, "User not found");
-  }
-  return toUserResponse(result[0]);
-};
-
 //? UPDATE User
 export const updateUserById = async (
   id: number,
@@ -73,7 +64,7 @@ export const changeUserPassword = async (
     .set({ password: newPasswordHash })
     .where(eq(users.id, id));
 
-  return { msg: "Password updated successfully" };
+  return { message: "Password updated successfully" };
 };
 
 //? DELETE User
@@ -86,5 +77,5 @@ export const deleteUserById = async (id: number) => {
   if (result.length === 0) {
     throw new AppError(404, "User not found");
   }
-  return { msg: "User deleted successfully" };
+  return { message: "User deleted successfully" };
 };

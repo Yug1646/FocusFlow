@@ -1,7 +1,6 @@
 import type { Request, Response } from "express";
 import {
   deleteUserById,
-  findUserByEmail,
   findUsers,
   findUserById,
   updateUserById,
@@ -18,13 +17,6 @@ export const getUsers = async (req: Request, res: Response) => {
 export const getUserById = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const user = await findUserById(id);
-  res.status(200).json(user);
-};
-
-// TODO: Get user by Email
-export const getUserByEmail = async (req: Request, res: Response) => {
-  const email = req.params.email;
-  const user = await findUserByEmail(email as string);
   res.status(200).json(user);
 };
 
