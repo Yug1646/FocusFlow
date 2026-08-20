@@ -86,7 +86,10 @@ export const updateSessionTitleById = async (
 
 //? Delete Session
 export const deleteSessionById = async (id: number, userId: number) => {
-  await getSessionForUser(id, userId);
+  const session = await getSessionForUser(id, userId);
+  if (!session.endedAt) {
+    throw new AppError(409, "Session not ended yet");
+  }
   await db.delete(sessions).where(eq(sessions.id, id));
   return { message: "Session deleted successfully" };
 };
